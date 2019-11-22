@@ -1,0 +1,29 @@
+<html>
+
+<body>
+</body>
+
+<script type="text/javascript">
+	
+	function check(place){
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = showRes;
+	xhr.open('GET',"https://developers.zomato.com/api/v2.1/cities?q="+place,true);
+	xhr.setRequestHeader("user-key","f1d0d3a92fd05d129a037d26a992ca67");
+	xhr.send();
+}
+
+	function showRes(){
+	if(this.readyState==4 && this.status == 200)
+	{
+		console.log(this.responseText);
+	}		
+	else{
+		console.log("No place latthat");
+	}
+	}
+
+</script>
+
+</html>
