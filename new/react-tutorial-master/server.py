@@ -1,4 +1,3 @@
-
 import json
 import os
 import time
@@ -31,22 +30,19 @@ def buzz():
         }
     )
 
-@app.route('/api/comments', methods=['GET', 'POST'])
-def comments_handler():
+@app.route('/api/comments/<rest>', methods=['GET', 'POST'])
+def comments_handler(rest):
     com = mongo.db.comments
-    restaurant="Toscano"
+    restaurant=rest
     if request.method == 'POST':
         new_comment = request.form.to_dict()
-        print(new_comment)
         new_comment['id'] = int(time.time() * 1000)
-        print(new_comment)
         # todo: remove restaurant
         uid = com.insert({"id":new_comment['id'],"name":new_comment['author'],"message":new_comment['text'],"rest":restaurant, "rating":new_comment['rating']})
 
-    docs_list = list(com.find())
+    docs_list = list(com.find({"rest":restaurant}))
     output=[]
     for i in docs_list:
-        print(i)
         # todo: remove
         output.append({"id": i['id'],"author":i['name'],"text":i['message'],"rest":restaurant,"rating":i['rating']})
 

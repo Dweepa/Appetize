@@ -45,8 +45,9 @@ var Comment = React.createClass({
 
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
+    var rest = getRest();
     $.ajax({
-      url: this.props.url,
+      url: this.props.url+"/"+rest,
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -96,6 +97,15 @@ var CommentBox = React.createClass({
     );
   }
 });
+var Intro = React.createClass({
+     render: function()
+     { return (<div className="col-sm-6" style={{"color":"white"}}>
+              <h3>{rest}</h3>
+               <p>Enter Description Here
+                </p>
+      </div>);
+      }
+});
 
 var CommentList = React.createClass({
   render: function() {
@@ -112,6 +122,20 @@ var CommentList = React.createClass({
       </div>
     );
   }
+});
+
+function getRest()
+{
+    var filename = $('#myscript').attr("rest");
+    console.log(filename);
+    return filename;
+}
+
+var Description = React.createClass({
+    fun: function(){
+    var filename = $('#myscript').attr("rest");
+    console.log(filename);},
+    render : function() { return (<div>{this.fun()} </div>);}
 });
 
 var CommentForm = React.createClass({
@@ -191,21 +215,12 @@ var CommentForm = React.createClass({
 
 ReactDOM.render(
   <div>
-    <div className="App container bg-light shadow pt-3">
+    <div className="App container bg-dark shadow p-5" style={{"marginTop":"10px"}}>
       <div className = "row">
             <div className="col-sm-6">
               <img src="./logo.jpeg" style={{"margin-bottom":'25px'}} />
             </div>
-            <div className="col-sm-6">
-              <h3>Toscano</h3>
-               <p>Koramangala 7th Block   ·  Casual Dining Opening hours · Open now
-                Today  12noon – 11pm
-                See more
-                Happy Hours: # Monday To Friday 4 Pm To 8 Pm Enjoy Selected Beverages A Flat Price of 199/- # Buy a pitcher of Sangria/Mojito or a Beer Bucket & Get A Pizza Free* Buy 1 Get 1 on Sangria and Select Cocktails: All day everyday! # 50% off on all pizza Mon-Wed
-                Address
-                2nd Floor, Forum Mall, Koramangala 7th Block, Bangalore
-                </p>
-            </div>
+            <Intro/>
         </div>
       </div>
     <div className="App container pt-5">

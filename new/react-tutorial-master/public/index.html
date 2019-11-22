@@ -20,6 +20,13 @@
   </head>
   <body>
     <div id="content"></div>
-    <script type="text/babel" src="scripts/example.js"></script>
+    <script id="myscript" type="text/babel" src="scripts/example.js"></script>
+    <script>
+      const params = new URLSearchParams(document.location.search);
+      const rest = params.get("rest");
+      console.log(rest);
+      var sc = document.getElementById("myscript")
+      sc.setAttribute("rest",rest);
+    </script>
   </body>
 </html>
