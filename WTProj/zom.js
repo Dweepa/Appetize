@@ -1,4 +1,8 @@
 function check(place){
+	const sleep = (milliseconds) => {
+  		return new Promise(resolve => setTimeout(resolve, milliseconds))
+		}
+
 	req = new XMLHttpRequest();
 	req.open('GET',"https://developers.zomato.com/api/v2.1/cities?q="+place,true);
 	req.setRequestHeader("user-key","f1d0d3a92fd05d129a037d26a992ca67");
@@ -14,16 +18,18 @@ function check(place){
 	req2.setRequestHeader("user-key","f1d0d3a92fd05d129a037d26a992ca67");
 	req2.send();
 
-	req2.onload = function(){
+	req2.onload = async function(){
 		res2 = JSON.parse(this.responseText);
 		disp(res2["restaurants"]);
 		console.log(res2);
+		await sleep(5000);
+		first(res2["restaurants"])
 	}
-}
+	}
 
 	function disp(results){
 		resultArea.innerHTML = "";
-		var i = 0;
+		var i;
 		for(i=0;i<20;i++){	
 		const newResult = rTemp.content.cloneNode(true);
 
@@ -34,17 +40,39 @@ function check(place){
     	newResult.querySelector('.result-neighborhood').innerText = x["location"]["locality"];
     	newResult.querySelector('.result-address').innerText = x["location"]["address"];
     	newResult.querySelector('.result-price').innerText = '₹'.repeat(x["price_range"]);
-    	newResult.querySelector('.result-thumbnail').src = x["thumb"];
-    	newResult.querySelector('.result-website').href = x["url"];
+    	newResult.querySelector('.result-thumbnail').src = "loading.gif";
+    	newResult.querySelector('.result-thumbnail').id = "pic"+i;
+    	//newResult.querySelector('.result-thumbnail').src = x["thumb"];
+    	newResult.querySelector('.result-website').href = x["url"];    	
+    	newResult.querySelector('.result-comment').href = "http://localhost:3000/?rest="+x["name"];
     	resultArea.appendChild(newResult);
-    	window.scrollTo({
-    		top:900,
-    		left:0,
-    		behaviour:'smooth'
-    	});
-  		};
-
+    	window.scrollTo(0,1000);
+  		}
 	}
+
+	async function first(res){
+		var i;	
+		for(i=0;i<10;i++)
+		{
+			var x = res[i]["restaurant"];
+			var picid = "pic"+i;
+			var el = document.getElementById(picid);
+			el.src = x["thumb"];
+		}
+		await sleep(5000);
+		second(res);
+	}
+
+	function second(res){
+		var i;	
+		for(i=10;i<20;i++)
+		{
+			var x = res[i]["restaurant"];
+			var picid = "pic"+i;
+			var el = document.getElementById(picid);
+			el.src = x["thumb"];
+		}
+}
 }
 
 

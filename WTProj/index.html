@@ -97,22 +97,22 @@
       font-size:25px;
       text-align: center;
       padding:3px;
+      cursor: auto;
     }
 
     .placeitem:hover{
       background-Color:grey;
+      cursor: auto;
     }
 
     html { height: 100%; overflow:auto; }
     body { height: 100%;margin:0;font-family: Roboto}
 
     .bg {
-    background-image: url("food.gif");
+    background-image: url("food.jpg");
 
     height: 100%;
 
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
     background-position: center;
     background-repeat: repeat-y;
     background-size: cover;
@@ -174,7 +174,7 @@ input{
 #logo{
   padding-top: 50px;
   padding-left:150px;
-  padding-bottom:150px;
+  padding-bottom:220px;
   height:50%;
   width:50%;
 
@@ -184,6 +184,20 @@ input{
   background-color: black;
 }
 
+#cam
+{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#buzz{
+    position: fixed;
+  bottom: 0;
+  right: 20px;
+    font-size: 80px;
+    margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -211,10 +225,14 @@ input{
     <div class="inner">
     <img id = "logo" src="logo.png">
     <div id="input_container">
-    <input id = "place" autocomplete = "off" type="text" placeholder = "Enter your location" onfocus="this.placeholder=''" onblur=" this.placeholder= 'Enter your location' "  onkeypress="obj.getTerm()"/> 
+    <input id = "place" autocomplete = "off" type="text" placeholder = "Enter your city" onfocus="this.placeholder=''" onblur=" this.placeholder= 'Enter your city' "  onkeypress="obj.getTerm()"/> 
    <!-- <img src="loc.png" id="input_img">-->
     <div id = "cont"> </div>
   </div>
+   <div id = "cam"><a href = "samyakjain.shinyapps.io/FoodRecog/"><img style = "height: 60%; width:60%;" src = "camera.png"/><a></div>
+    <div id = "buzz">
+      <a href = "http://localhost/WTProj/buzz3.html"><p style="font-family: Calistoga;margin: 15px;">BUZZ!</p></a>
+    </div>
   </div>
   </div>
 </div>
@@ -240,7 +258,7 @@ input{
       <div class="result-footer">
         <button class="result-footer-button">Call</button>
         <button class="result-footer-button"><a href="" target="_blank" class="result-website">Visit Website</a></button>
-        <button class="result-footer-button">Make Reservation</button>
+        <button class="result-footer-button"><a href="" target="_blank" class="result-comment">Comment</a></button>
       </div>
     </div>  
   </template>
